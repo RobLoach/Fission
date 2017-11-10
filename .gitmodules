@@ -1,0 +1,6 @@
+[submodule "ext/nuklear"]
+	path = ext/nuklear
+	url = https://github.com/vurtun/nuklear.git
+[submodule "ext/vulkan-hpp"]
+	path = ext/vulkan-hpp
+	url = https://github.com/KhronosGroup/Vulkan-Hpp.git

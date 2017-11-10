@@ -1,0 +1,21 @@
+#pragma once
+#if !defined(__FISSION_CONFIG__HH__)
+#define __FISSION_CONFIG__HH__
+
+#if __has_cpp_attribute(deprecated)
+	#define DEPRECATED(x) [[deprecated(x)]]
+#else
+	#define DEPRECATED(x) __attribute__ ((deprecated(x)))
+#endif
+
+/* == Fission Defines == */
+#define FISSION_VERSION "@FISSION_VERSION@"
+#define FISSION_BACKEND "@FISSION_BACKEND@"
+
+/* == Compiler Details == */
+#define COMPILER_NAME "@COMPILER_NAME@"
+#define COMPILER_VERSION "@COMPILER_VERSION@"
+
+
+
+#endif /* __FISSION_CONFIG__HH__ */

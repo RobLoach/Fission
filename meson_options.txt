@@ -1,0 +1,2 @@
+option('gfxbackend', type : 'combo', choices : ['X11GL3', 'X11VULKAN', 'WAYGL3', 'WAYVULKAN'], value : 'X11GL3')
+option('gendocs', type : 'boolean', value : true)

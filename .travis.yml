@@ -1,0 +1,138 @@
+sudo: false
+dist: trusty
+language: cpp
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+            - ninja-build
+            - python3
+            - python3-pip
+            - libxcb-dev
+            - libglu1-mesa-dev
+            - libgl1-mesa-dev
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && BACKEND=X11GL3"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - ninja-build
+            - python3
+            - python3-pip
+            - libxcb-dev
+            - libglu1-mesa-dev
+            - libgl1-mesa-dev
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && BACKEND=X11GL3"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-4.0
+          packages:
+            - clang-4.0
+            - ninja-build
+            - python3
+            - python3-pip
+            - libxcb-dev
+            - libglu1-mesa-dev
+            - libgl1-mesa-dev
+      env:
+        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0 && BACKEND=X11GL3"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - clang-5.0
+            - ninja-build
+            - python3
+            - python3-pip
+            - libxcb-dev
+            - libglu1-mesa-dev
+            - libgl1-mesa-dev
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && BACKEND=X11GL3"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+            - ninja-build
+            - python3
+            - python3-pip
+            - libxcb-dev
+            - libvulkan-dev
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && BACKEND=X11VULKAN"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - ninja-build
+            - python3
+            - python3-pip
+            - libxcb-dev
+            - libvulkan-dev
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && BACKEND=X11VULKAN"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-4.0
+          packages:
+            - clang-4.0
+            - ninja-build
+            - python3
+            - python3-pip
+            - libxcb-dev
+            - libvulkan-dev
+      env:
+        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0 && BACKEND=X11VULKAN"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - clang-5.0
+            - ninja-build
+            - python3
+            - python3-pip
+            - libxcb-dev
+            - libvulkan-dev
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && BACKEND=X11VULKAN"
+
+before_install:
+  - eval "${MATRIX_EVAL}"
+
+install:
+  - pip3 install meson
+
+script:
+  - meson -Dgfxbackend=$BACKEND build
+  - ninja -C build
