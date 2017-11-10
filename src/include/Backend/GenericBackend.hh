@@ -8,8 +8,17 @@
 #if !defined(__BACKEND_GENERICBACKEND_HH__)
 #define __BACKEND_GENERICBACKEND_HH__
 
+#include <memory>
 
 namespace Fission::Backends {
+	typedef struct WindowContext {
+		WindowContext(void) = default;
+		virtual ~WindowContext(void) = default;
+
+		virtual void ShowWindow(void) = 0;
+		virtual void DtorWindow(void) = 0;
+	} WindowContext_t;
+
 	/*! \class GenericBackend
 		\brief Abstract backend class
 
@@ -22,14 +31,10 @@ namespace Fission::Backends {
 		GenericBackend(void) = default;
 		virtual ~GenericBackend(void) = default;
 
-		virtual struct WindowContext ConstructBackend(void) = 0;
-		virtual void DestructBackend(struct WindowContext& ctx) = 0;
+		virtual std::shared_ptr<WindowContext_t> ConstructBackend(void) = 0;
+		virtual void DestructBackend(std::shared_ptr<WindowContext_t> ctx) = 0;
 
 
-	};
-
-	struct WindowContext {
-		// uint winid;
 	};
 }
 #endif /* __BACKEND_GENERICBACKEND_HH__ */

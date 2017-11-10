@@ -16,6 +16,16 @@ using Fission::Utility::Singleton;
 #include <xcb/xcb.h>
 
 namespace Fission::Backends {
+	typedef struct X11GL3WindowContext : public WindowContext {
+		int screen_num;
+		xcb_connection_t* xcbConn;
+		xcb_atom_t WindowAtom;
+
+		void ShowWindow(void);
+		void DtorWindow(void);
+	} X11GL3WindowContext_t;
+
+
 	/*! \class X11GL3Backend
 		\brief X11 OpenGL3 rendering backend
 
@@ -24,20 +34,16 @@ namespace Fission::Backends {
 
 		This backend targets Linux systems only.
 	*/
-	class X11GL3Backend : GenericBackend, Singleton<X11GL3Backend> {
+	class X11GL3Backend : GenericBackend, public Singleton<X11GL3Backend> {
 	private:
 
 	public:
 		X11GL3Backend(void);
-		virtual struct WindowContext ConstructBackend(void) final;
-		virtual void DestructBackend(struct WindowContext& ctx) final;
+		virtual std::shared_ptr<WindowContext_t> ConstructBackend(void) final;
+		virtual void DestructBackend(std::shared_ptr<WindowContext_t> ctx) final;
 		~X11GL3Backend(void);
 	};
 
-	struct X11GL3WindowContext : WindowContext {
-		int screen_num;
-		xcb_connection_t* xcbConn;
-		xcb_atom_t WindowAtom;
-	};
+
 }
 #endif /* __BACKEND_X11GL3BACKEND_HH__ */

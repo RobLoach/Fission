@@ -8,23 +8,36 @@
 #if !defined(__FISSION_HH__)
 #define __FISSION_HH__
 
+#include <FissionConfig.hh>
+
 /* == Backends == */
 #include <Backend/GenericBackend.hh>
-#include <Backend/X11GL3Backend.hh>
+#if defined(__X11GL3)
+	#include <Backend/X11GL3Backend.hh>
+	#define BACKEND Fission::Backends::X11GL3Backend
+#elif defined(__X1VULKAN)
+	#include <Backend/X11VULKANBackend.hh>
+	#define BACKEND Fission::Backends::X11VULKANBackend
+#elif defined(__WAYGL3)
+	#include <Backend/WAYGL3Backend.hh>
+	#define BACKEND Fission::Backends::WAYGL3Backend
+#elif defined(__WAYVULKAN)
+	#include <Backend/WAYVULKANBackend.hh>
+	#define BACKEND Fission::Backends::WAYVULKANBackend
+#endif
 
 #include <Utility/Singleton.hh>
-
 #include <map>
+
+using Fission::Utility::Singleton;
 
 /*! \class FissionM
 	\brief Management Machinery
 
 */
-class FissionM : Fission::Utility::Singleton<FissionM> {
+class FissionM : public Singleton<FissionM> {
 private:
-
-
-
+	BACKEND _bkend;
 
 public:
 	FissionM();
@@ -55,6 +68,7 @@ public:
 		This is used by FissionM::Initialize to setup the argument parsing
 	*/
 	void ParseArgs(int argc, char* argv[]);
+
 };
 
 #endif /* __FISSION_HH__ */

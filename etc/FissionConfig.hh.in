@@ -16,6 +16,11 @@
 #define COMPILER_NAME "@COMPILER_NAME@"
 #define COMPILER_VERSION "@COMPILER_VERSION@"
 
+/* == Internal / Meta stuff == */
 
+#mesondefine __X11GL3
+#mesondefine __X11VULKAN
+#mesondefine __WAYGL3
+#mesondefine __WAYVULKAN
 
 #endif /* __FISSION_CONFIG__HH__ */

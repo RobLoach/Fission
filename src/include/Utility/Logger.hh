@@ -31,7 +31,7 @@ namespace Fission::Utility {
 	/*! \class Logger
 		\brief Provides simple logging machinery
 	*/
-	class Logger : Singleton<Logger> {
+	class Logger : public Singleton<Logger> {
 	private:
 		bool IsTTY;
 

@@ -25,6 +25,8 @@
 
 using Fission::Utility::WindowPos;
 using Fission::Utility::WindowSize;
+using Fission::Backends::WindowContext_t;
+
 
 namespace Fission {
 
@@ -41,7 +43,7 @@ namespace Fission {
 		WindowSize _Size;
 		WindowPos _Position;
 
-
+		std::shared_ptr<WindowContext_t> _ctx;
 
 
 	public:
@@ -56,6 +58,8 @@ namespace Fission {
 			WindowPos Position = {0, 0});
 
 		~FissionWindow(void);
+
+		void ShowWindow(void);
 
 		/* == Events == */
 		/*! \struct WindowResize

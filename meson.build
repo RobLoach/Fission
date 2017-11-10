@@ -62,12 +62,6 @@ cfg.set('FISSION_BACKEND', gfxbackend)
 cfg.set('COMPILER_NAME', cc.get_id())
 cfg.set('COMPILER_VERSION', cc.version())
 
-fcfg = configure_file(
-	input: './etc/FissionConfig.hh.in',
-	output: 'FissionConfig.hh',
-	configuration: cfg
-)
-
 
 deps = []
 
@@ -78,7 +72,7 @@ srcs = [
 headers = [
 	'./ext/nuklear/nuklear.h', './src/include/Fission.hh', './src/include/FissionWindow.hh',
 	'./src/include/Backend/GenericBackend.hh', './src/include/Utility/Event.hh',
-	'./src/include/Utility/Singleton.hh', './src/include/Utility/Strutil.hh', fcfg,
+	'./src/include/Utility/Singleton.hh', './src/include/Utility/Strutil.hh',
 
 	# Widgets
 	'./src/include/Widgets/BaseWidget.hh'
@@ -105,6 +99,8 @@ if gfxbackend == 'X11GL3'
 		'./src/include/Backend/X11GL3Backend.hh'
 	]
 
+	cfg.set10('__X11GL3', true)
+
 elif gfxbackend == 'X11VULKAN'
 	message('X11 Vulkan backend selected')
 
@@ -122,6 +118,8 @@ elif gfxbackend == 'X11VULKAN'
 		'./src/include/Backend/X11VULKANBackend.hh',
 		'./ext/vulkan-hpp/vulkan/vulkan.hpp'
 	]
+
+	cfg.set10('__X11VULKAN', true)
 
 elif gfxbackend == 'WAYGL3'
 	message('Waylan OpenGL3 backend selected')
@@ -141,6 +139,8 @@ elif gfxbackend == 'WAYGL3'
 		'./src/include/Backend/WAYGL3Backend.hh'
 	]
 
+	cfg.set10('__WAYGL3', true)
+
 elif gfxbackend == 'WAYVULKAN'
 	message('Wayland Vulkan backend selected')
 
@@ -159,9 +159,20 @@ elif gfxbackend == 'WAYVULKAN'
 		'./ext/vulkan-hpp/vulkan/vulkan.hpp'
 	]
 
+	cfg.set10('__WAYVULKAN', true)
+
 else
 	error('Unknown rendering backend \'' + gfxbackend + '\'. ')
 endif
+
+
+fcfg = configure_file(
+	input: './etc/FissionConfig.hh.in',
+	output: 'FissionConfig.hh',
+	configuration: cfg
+)
+
+headers += fcfg
 
 
 fission = shared_library(

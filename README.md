@@ -2,7 +2,7 @@
 Fission is a C++-ish wrapper around the [nuklear](https://github.com/vurtun/nuklear) GUI library.
 
 Fission comes with several rendering backends, see the table below:
-|   | OpenGL3 | Vulkan |
+|  | OpenGL3 | Vulkan |
 | -| ------- | ------ |
 | X11     | ✓ | ✗ |
 | Wayland | ✗ | ✗ |
