@@ -129,9 +129,10 @@ matrix:
 
 before_install:
   - eval "${MATRIX_EVAL}"
+  - eval "PATH=$PATH:~/.local/bin"
 
 install:
-  - pip3 install meson
+  - pip3 install --user meson
 
 script:
   - meson -Dgfxbackend=$BACKEND build
