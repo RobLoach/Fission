@@ -14,19 +14,16 @@
 #include <Backend/GenericBackend.hh>
 #if defined(__X11GL3)
 	#include <Backend/X11GL3Backend.hh>
-	#define BACKEND Fission::Backends::X11GL3Backend
 #elif defined(__X1VULKAN)
 	#include <Backend/X11VULKANBackend.hh>
-	#define BACKEND Fission::Backends::X11VULKANBackend
 #elif defined(__WAYGL3)
 	#include <Backend/WAYGL3Backend.hh>
-	#define BACKEND Fission::Backends::WAYGL3Backend
 #elif defined(__WAYVULKAN)
 	#include <Backend/WAYVULKANBackend.hh>
-	#define BACKEND Fission::Backends::WAYVULKANBackend
 #endif
 
 #include <Utility/Singleton.hh>
+#include <memory>
 #include <map>
 
 using Fission::Utility::Singleton;
@@ -37,7 +34,9 @@ using Fission::Utility::Singleton;
 */
 class FissionM : public Singleton<FissionM> {
 private:
-	BACKEND _bkend;
+	std::unique_ptr<Fission::Backends::GenericBackend> _bkend;
+
+	void InitializeBackend(void);
 
 public:
 	FissionM();

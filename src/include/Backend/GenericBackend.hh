@@ -31,8 +31,8 @@ namespace Fission::Backends {
 		GenericBackend(void) = default;
 		virtual ~GenericBackend(void) = default;
 
-		virtual std::shared_ptr<WindowContext_t> ConstructBackend(void) = 0;
-		virtual void DestructBackend(std::shared_ptr<WindowContext_t> ctx) = 0;
+		virtual std::unique_ptr<WindowContext_t>  ConstructBackend(void) = 0;
+		virtual void DestructBackend(std::unique_ptr<WindowContext_t> ctx) = 0;
 
 
 	};

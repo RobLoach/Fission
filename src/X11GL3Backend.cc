@@ -21,20 +21,18 @@ namespace Fission::Backends {
 
 	}
 
-	std::shared_ptr<WindowContext_t> X11GL3Backend::ConstructBackend(void) {
-		X11GL3WindowContext_t win_ctx;
-		memset(&win_ctx, 0, sizeof(struct X11GL3WindowContext));
-
+	std::unique_ptr<WindowContext_t> X11GL3Backend::ConstructBackend(void) {
+		X11GL3WindowContext_t win_ctx = {};
 		win_ctx.xcbConn = xcb_connect(NULL, &win_ctx.screen_num);
 
 
-		return std::make_shared<WindowContext_t>(win_ctx);
+		return std::make_unique<X11GL3WindowContext_t>(win_ctx);
 	}
 
-	void X11GL3Backend::DestructBackend(std::shared_ptr<WindowContext_t> ctx) {
-		auto win_ctx = static_cast<X11GL3WindowContext_t>(*ctx);
+	void X11GL3Backend::DestructBackend(std::unique_ptr<WindowContext_t> ctx) {
+		// auto win_ctx = static_cast<X11GL3WindowContext_t&>(ctx);
 
-		xcb_disconnect(win_ctx->xcbConn);
+		// xcb_disconnect(win_ctx->xcbConn);
 
 	}
 

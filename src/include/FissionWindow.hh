@@ -43,7 +43,6 @@ namespace Fission {
 		WindowSize _Size;
 		WindowPos _Position;
 
-		std::shared_ptr<WindowContext_t> _ctx;
 
 
 	public:

@@ -6,15 +6,15 @@ namespace Fission {
 		this->_WindowName = WindowTitle;
 		this->_Size = Size;
 		this->_Position = Position;
-		this->_ctx = BACKEND::GetInstance()->ConstructBackend();
+
 	}
 
 	void FissionWindow::ShowWindow(void) {
-		this->_ctx->ShowWindow();
+		// this->_ctx->ShowWindow();
 	}
 
 
 	FissionWindow::~FissionWindow(void) {
-		this->_ctx->DtorWindow();
+		// this->_ctx->DtorWindow();
 	}
 }

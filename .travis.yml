@@ -10,7 +10,6 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-6
-            - ninja-build
             - python3
             - python3-pip
             - libxcb1-dev
@@ -26,7 +25,6 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
-            - ninja-build
             - python3
             - python3-pip
             - libxcb1-dev
@@ -42,7 +40,6 @@ matrix:
             - llvm-toolchain-trusty-4.0
           packages:
             - clang-4.0
-            - ninja-build
             - python3
             - python3-pip
             - libxcb1-dev
@@ -58,7 +55,6 @@ matrix:
             - llvm-toolchain-trusty-5.0
           packages:
             - clang-5.0
-            - ninja-build
             - python3
             - python3-pip
             - libxcb1-dev
@@ -67,69 +63,68 @@ matrix:
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && BACKEND=X11GL3"
 
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-            - ninja-build
-            - python3
-            - python3-pip
-            - libxcb1-dev
-            - libvulkan-dev
-      env:
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && BACKEND=X11VULKAN"
+    # - os: linux
+    #   addons:
+    #     apt:
+    #       sources:
+    #         - ubuntu-toolchain-r-test
+    #       packages:
+    #         - g++-6
+    #         - python3
+    #         - python3-pip
+    #         - libxcb1-dev
+    #         - libvulkan-dev
+    #   env:
+    #     - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && BACKEND=X11VULKAN"
 
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-            - ninja-build
-            - python3
-            - python3-pip
-            - libxcb1-dev
-            - libvulkan-dev
-      env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && BACKEND=X11VULKAN"
+    # - os: linux
+    #   addons:
+    #     apt:
+    #       sources:
+    #         - ubuntu-toolchain-r-test
+    #       packages:
+    #         - g++-7
+    #         - python3
+    #         - python3-pip
+    #         - libxcb1-dev
+    #         - libvulkan-dev
+    #   env:
+    #     - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && BACKEND=X11VULKAN"
 
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-4.0
-          packages:
-            - clang-4.0
-            - ninja-build
-            - python3
-            - python3-pip
-            - libxcb1-dev
-            - libvulkan-dev
-      env:
-        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0 && BACKEND=X11VULKAN"
+    # - os: linux
+    #   addons:
+    #     apt:
+    #       sources:
+    #         - llvm-toolchain-trusty-4.0
+    #       packages:
+    #         - clang-4.0
+    #         - python3
+    #         - python3-pip
+    #         - libxcb1-dev
+    #         - libvulkan-dev
+    #   env:
+    #     - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0 && BACKEND=X11VULKAN"
 
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-5.0
-          packages:
-            - clang-5.0
-            - ninja-build
-            - python3
-            - python3-pip
-            - libxcb1-dev
-            - libvulkan-dev
-      env:
-        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && BACKEND=X11VULKAN"
+    # - os: linux
+    #   addons:
+    #     apt:
+    #       sources:
+    #         - llvm-toolchain-trusty-5.0
+    #       packages:
+    #         - clang-5.0
+    #         - python3
+    #         - python3-pip
+    #         - libxcb1-dev
+    #         - libvulkan-dev
+    #   env:
+    #     - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && BACKEND=X11VULKAN"
 
 before_install:
+  - mkdir -p ~/.local/bin
   - eval "${MATRIX_EVAL}"
   - eval "PATH=$PATH:~/.local/bin"
+  - curl -LO https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip
+  - unzip ninja-linux.zip -d ~/.local/bin
 
 install:
   - pip3 install --user meson

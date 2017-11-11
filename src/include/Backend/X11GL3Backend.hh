@@ -34,13 +34,13 @@ namespace Fission::Backends {
 
 		This backend targets Linux systems only.
 	*/
-	class X11GL3Backend : GenericBackend, public Singleton<X11GL3Backend> {
+	class X11GL3Backend : public GenericBackend, public Singleton<X11GL3Backend> {
 	private:
 
 	public:
 		X11GL3Backend(void);
-		virtual std::shared_ptr<WindowContext_t> ConstructBackend(void) final;
-		virtual void DestructBackend(std::shared_ptr<WindowContext_t> ctx) final;
+		virtual std::unique_ptr<WindowContext_t> ConstructBackend(void) final;
+		virtual void DestructBackend(std::unique_ptr<WindowContext_t> ctx) final;
 		~X11GL3Backend(void);
 	};
 
