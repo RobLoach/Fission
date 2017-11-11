@@ -16,6 +16,15 @@ using Fission::Utility::Singleton;
 #include <xcb/xcb.h>
 
 namespace Fission::Backends {
+	struct X11VULKANWindowContext : public WindowContext {
+		int screen_num;
+		xcb_connection_t* xcbConn;
+		xcb_atom_t WindowAtom;
+
+		void ShowWindow(void);
+		void DtorWindow(void);
+	} X11VULKANWindowContext_t;
+
 	/*! \class X11VULKANBackend
 		\brief X11 Vulkan rendering backend
 
@@ -29,15 +38,9 @@ namespace Fission::Backends {
 
 	public:
 		X11VULKANBackend(void);
-		virtual struct WindowContext ConstructBackend(void) final;
-		virtual void DestructBackend(struct WindowContext& ctx) final;
+		virtual std::unique_ptr<WindowContext_t> ConstructBackend(void) final;
+		virtual void DestructBackend(std::unique_ptr<WindowContext_t> ctx) final;
 		~X11VULKANBackend(void);
-	};
-
-	struct X11VULKANWindowContext : WindowContext {
-		int screen_num;
-		xcb_connection_t* xcbConn;
-		xcb_atom_t WindowAtom;
 	};
 }
 #endif /* __BACKEND_X11VULKANBACKEND_HH__ */

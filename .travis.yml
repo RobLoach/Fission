@@ -43,7 +43,7 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-4.0
           packages:
-            - g++-7
+            - g++-6
             - clang-4.0
             - python3
             - python3-pip

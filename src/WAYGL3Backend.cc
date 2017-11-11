@@ -18,25 +18,27 @@ namespace Fission::Backends {
 
 	}
 
-	struct WindowContext WAYGL3Backend::ConstructBackend(void) {
-		struct WAYGL3WindowContext win_ctx;
-		memset(&win_ctx, 0, sizeof(struct WAYGL3WindowContext));
-
-		win_ctx.xcbConn = xcb_connect(NULL, &win_ctx.screen_num);
+	std::unique_ptr<WindowContext_t> WAYGL3Backend::ConstructBackend(void) {
+		WAYGL3WindowContext_t win_ctx = {};
 
 
-		return static_cast<WindowContext>(win_ctx);
+		return std::make_unique<WAYGL3WindowContext_t>(win_ctx);
 	}
 
-	void WAYGL3Backend::DestructBackend(struct WindowContext& ctx) {
-		auto win_ctx = static_cast<WAYGL3WindowContext&>(ctx);
-
-
-		xcb_disconnect(win_ctx.xcbConn);
+	void WAYGL3Backend::DestructBackend(std::unique_ptr<WindowContext_t> ctx) {
 
 	}
 
 	WAYGL3Backend::~WAYGL3Backend(void) {
+
+	}
+
+	void WAYGL3WindowContext::ShowWindow(void) {
+		DEBUG("WAYGL3 Show Window %p", this->xcbConn);
+	}
+
+	void WAYGL3WindowContext::DtorWindow(void) {
+		DEBUG("WAYGL3 Dtor Window %p", this->xcbConn);
 
 	}
 }

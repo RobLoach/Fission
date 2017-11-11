@@ -17,25 +17,31 @@ namespace Fission::Backends {
 
 	}
 
-	struct WindowContext X11VULKANBackend::ConstructBackend(void) {
-		struct X11VULKANWindowContext win_ctx;
-		memset(&win_ctx, 0, sizeof(struct X11VULKANWindowContext));
-
+	std::unique_ptr<WindowContext_t>  X11VULKANBackend::ConstructBackend(void) {
+		X11VULKANWindowContext_t win_ctx = {};
 		win_ctx.xcbConn = xcb_connect(NULL, &win_ctx.screen_num);
 
 
-		return static_cast<WindowContext>(win_ctx);
+		return std::make_unique<X11VULKANWindowContext_t>(win_ctx);
 	}
 
-	void X11VULKANBackend::DestructBackend(struct WindowContext& ctx) {
-		auto win_ctx = static_cast<X11VULKANWindowContext&>(ctx);
+	void X11VULKANBackend::DestructBackend(std::unique_ptr<WindowContext_t> ctx) {
+		// auto win_ctx = static_cast<X11VULKANWindowContext&>(ctx);
 
 
-		xcb_disconnect(win_ctx.xcbConn);
-
+		// xcb_disconnect(win_ctx.xcbConn);
 	}
 
 	X11VULKANBackend::~X11VULKANBackend(void) {
+
+	}
+
+	void X11VULKANWindowContext::ShowWindow(void) {
+		DEBUG("X11VULKAN Show Window %p", this->xcbConn);
+	}
+
+	void X11VULKANWindowContext::DtorWindow(void) {
+		DEBUG("X11VULKAN Dtor Window %p", this->xcbConn);
 
 	}
 }

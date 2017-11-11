@@ -16,6 +16,10 @@ using Fission::Utility::Singleton;
 
 
 namespace Fission::Backends {
+	struct WAYGL3WindowContext : public WindowContext {
+		void ShowWindow(void);
+		void DtorWindow(void);
+	};
 	/*! \class WAYGL3Backend
 		\brief Wayland OpenGL3 rendering backend
 
@@ -29,13 +33,10 @@ namespace Fission::Backends {
 
 	public:
 		WAYGL3Backend(void);
-		virtual struct WindowContext ConstructBackend(void) final;
-		virtual void DestructBackend(struct WindowContext& ctx) final;
+		virtual std::unique_ptr<WindowContext_t> ConstructBackend(void) final;
+		virtual void DestructBackend(std::unique_ptr<WindowContext_t> ctx) final;
 		~WAYGL3Backend(void);
 	};
 
-	struct WAYGL3WindowContext : WindowContext {
-
-	};
 }
 #endif /* __BACKEND_WAYCKEND_HH__ */

@@ -17,25 +17,26 @@ namespace Fission::Backends {
 
 	}
 
-	struct WindowContext WAYVULKANBackend::ConstructBackend(void) {
-		struct WAYVULKANWindowContext win_ctx;
-		memset(&win_ctx, 0, sizeof(struct WAYVULKANWindowContext));
+	std::unique_ptr<WindowContext_t> WAYVULKANBackend::ConstructBackend(void) {
+		WAYVULKANWindowContext_t win_ctx = {};
 
-		win_ctx.xcbConn = xcb_connect(NULL, &win_ctx.screen_num);
-
-
-		return static_cast<WindowContext>(win_ctx);
+		return std::make_unique<WAYVULKANWindowContext_t>(win_ctx);
 	}
 
-	void WAYVULKANBackend::DestructBackend(struct WindowContext& ctx) {
-		auto win_ctx = static_cast<WAYVULKANWindowContext&>(ctx);
-
-
-		xcb_disconnect(win_ctx.xcbConn);
+	void WAYVULKANBackend::DestructBackend(std::unique_ptr<WindowContext_t> ctx) {
 
 	}
 
 	WAYVULKANBackend::~WAYVULKANBackend(void) {
+
+	}
+
+	void WAYVULKANWindowContext::ShowWindow(void) {
+		DEBUG("WAYVULKAN Show Window %p", this->xcbConn);
+	}
+
+	void WAYVULKANWindowContext::DtorWindow(void) {
+		DEBUG("WAYVULKAN Dtor Window %p", this->xcbConn);
 
 	}
 }

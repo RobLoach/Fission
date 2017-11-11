@@ -16,6 +16,11 @@ using Fission::Utility::Singleton;
 
 
 namespace Fission::Backends {
+	struct WAYVULKANWindowContext : public WindowContext {
+		void ShowWindow(void);
+		void DtorWindow(void);
+	} WAYVULKANWindowContext_t;
+
 	/*! \class WAYVULKANBackend
 		\brief Wayland Vulkan rendering backend
 
@@ -29,13 +34,9 @@ namespace Fission::Backends {
 
 	public:
 		WAYVULKANBackend(void);
-		virtual struct WindowContext ConstructBackend(void) final;
-		virtual void DestructBackend(struct WindowContext& ctx) final;
+		virtual std::unique_ptr<WindowContext_t>  ConstructBackend(void) final;
+		virtual void DestructBackend(std::unique_ptr<WindowContext_t>  ctx) final;
 		~WAYVULKANBackend(void);
-	};
-
-	struct WAYVULKANWindowContext : WindowContext {
-
 	};
 }
 #endif /* __BACKEND_WAYCKEND_HH__ */
