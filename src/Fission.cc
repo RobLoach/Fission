@@ -33,7 +33,7 @@ int FissionM::WaitExit(void) {
 
 
 void FissionM::ParseArgs(int argc, char* argv[]) {
-	static char prfx[] = "-f"; // C++ is stupid
+	static const char prfx[] = "-f"; // C++ is stupid
 	for(int i = 1; i < argc; i++) {
 		std::string arg(argv[i]);
 		if(startswith<prfx>(arg)) {
