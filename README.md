@@ -1,5 +1,5 @@
 # Fission [![Build Status](https://travis-ci.org/XAMPP/Fission.svg?branch=master)](https://travis-ci.org/XAMPP/Fission)
-Fission is a C++-ish wrapper around the [nuklear](https://github.com/vurtun/nuklear) GUI library.
+Fission is a C++-ish wrapper around the [nuklear](https://github.com/vurtun/nuklear) GUI(Graphical User Interface) library.
 
 Fission comes with several rendering backends, see the table below:
 |  | OpenGL3 | Vulkan |
