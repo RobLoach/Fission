@@ -46,7 +46,7 @@ $ cd build && ninja
 
 This will by default build the X11 OpenGL3 backend, to specify the backend do the following:
 ```
-$ cd build
+$ cd BUILD
 $ meson configure -Dgfxbackend=<BACKEND>
 ```
 
